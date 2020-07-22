@@ -3,5 +3,5 @@ server:
   servlet:
     context-path: /camunda
 camunda.bpm.admin-user:
-  id: MykolaMatsishin
-  password: 123
+  id: admin
+  password: admin

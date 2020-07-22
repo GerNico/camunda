@@ -3,10 +3,8 @@ package com.example.workflow;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -17,9 +15,9 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
  * @since 4.9
  */
 @Component
-public class PetJavaDelegate implements JavaDelegate {
+public class GetAccountData implements JavaDelegate {
 
-	private static Map<String, String> accountConfigs = new HashMap<>();
+	private static final Map<String, String> accountConfigs = new HashMap<>();
 
 	static {
 		accountConfigs.put("123", "John Smith");
@@ -29,11 +27,13 @@ public class PetJavaDelegate implements JavaDelegate {
 
 	@Override
 	public void execute(DelegateExecution delegateExecution) {
+		System.out.println("Collecting data about room");
 		String accountId = (String) delegateExecution.getVariable("accountId");
 		String user = accountConfigs.get(accountId);
 		int random = (int) (Math.random() * 10);
 
 		delegateExecution.setVariable("user", user);
 		delegateExecution.setVariable("random", random);
+		delegateExecution.setVariable("command", "ON");
 	}
 }
